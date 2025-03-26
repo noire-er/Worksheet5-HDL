@@ -3,9 +3,10 @@ CHIP A5Q2201846133 {
     OUT T;
 
     PARTS:
-    Not (in=Z, out=notZ);
-    Or (a=P, b=F, out=PorF);
-    Or (a=P, b=F, out=PorF2);
-    And (a=PorF, b=PorF2, out=PandF);
-    And (a=notZ, b=PandF, out=T);
+    Not (in=P, out=notP);
+    Not (in=F, out=notF)
+    Or (a=notF, b=notP, out=A);
+    Or (a=notF, b=notP, out=B);
+    And (a=A, b=b, out=C);
+    And (a=Z, b=C, out=T);
 }
