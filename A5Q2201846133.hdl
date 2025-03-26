@@ -7,6 +7,6 @@ CHIP A5Q2201846133 {
     Not (in=F, out=notF);
     Or (a=notF, b=notP, out=A);
     Or (a=notF, b=notP, out=B);
-    And (a=A, b=b, out=C);
+    And (a=A, b=B, out=C);
     And (a=Z, b=C, out=T);
 }
