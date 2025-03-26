@@ -3,7 +3,7 @@ CHIP A5Q2201846133 {
     OUT T;
 
     PARTS:
-    NOT (in=Z, out=notZ);
+    Not (in=Z, out=notZ);
     Or (a=P, b=F, out=PorF);
     Or (a=P, b=F, out=PorF2);
     And (a=PorF, b=PorF2, out=PandF);
