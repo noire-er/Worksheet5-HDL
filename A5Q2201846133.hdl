@@ -1,11 +1,13 @@
 CHIP A5Q2201846133 {
-    IN P, F, Z;
-    OUT T;
+    IN O, C, V;
+    OUT U;
 
     PARTS:
-    Not (in=P, out=notP);
-    Not (in=F, out=notF);
-    Or  (a=notF, b=notP, out=A);
-    And (a=A, b=A, out=C);    
-    And (a=Z, b=C, out=T);
+    Not(in=C, out=nC);
+    Or(a=nC, b=O, out=or1);
+    Or(a=O, b=V, out=or2);
+    And(a=or1, b=or2, out=and1);
+    Not(in=and1, out=not1);
+    Or(a=O, b=V, out=or3);
+    And(a=not1, b=or3, out=U);
 }
