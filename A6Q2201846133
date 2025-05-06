@@ -1,0 +1,45 @@
+CHIP A6Q2201846133 {
+    IN w, x, y, z;
+    OUT e;
+
+    PARTS:
+    Not (in=w, out=notw);
+    Not (in=x, out=notx);
+    And (w=notw, x=notx, out=notwandnotx);
+    Not (in=y, out=noty);
+    And (w=noty, x=z, out=notyandz);
+    And (w=wandnotx, x=notyandz, out=notwandnotxandnotyandz);
+
+    Not (in=z, out=notz);
+    And(w=y, x=notz, out=yandnotz);
+    And(w=notwandx, x=yandnotz, out=notwandnotxandyandnotz);
+
+    And(w=y, x=z, out=yandz)
+    And(w=notwandnotx, x=yandz, out=notwandnotxandyandz);
+
+    And (w=notw, x=x, out=notwandx);
+    And (w=noty, x=notz, out=notyandnotz);
+    And (w=notwandx, x=notyandnotz, out=notwandxandnotyandnotz);
+
+    And(w=notwandnotx, x=yandnotz, out=notwandxandyandnotz)
+
+    And (w=w, x=x, out=wandx);
+    And (w=wandx, x=notyandz, out=wandxandnotyandz);
+
+    Or (w=notwandnotxandnotyandz, x=notwandnotxandyandnotz, out=or1);
+    Or (w=notwandnotxandyandz, x=notwandxandnotyandnotz, out=or2);
+    Or (w=notwandxandyandnotz, x=wandxandnotyandz, out=or3);
+    Or (w=or1, x=or2, out=or1oror2);
+    Or (w=ororor2, x=or3, out=e);
+}
+
+
+
+
+
+
+
+
+
+
+
