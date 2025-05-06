@@ -3,35 +3,34 @@ CHIP A6Q2201846133 {
     OUT e;
 
     PARTS:
-    Not(in=w, out=notw);
-    Not(in=x, out=notx);
-    And(a=notw, b=notx, out=notwandnotx);
+    Not (in=w, out=notw);
+    Not (in=x, out=notx);
+    And (w=notw, x=notx, out=notwandnotx);
+    Not (in=y, out=noty);
+    And (w=noty, x=z, out=notyandz);
+    And (w=wandnotx, x=notyandz, out=notwandnotxandnotyandz);
 
-    Not(in=y, out=noty);
-    And(a=noty, b=z, out=notyandz);
-    And(a=notwandnotx, b=notyandz, out=notwandnotxandnotyandz);
+    Not (in=z, out=notz);
+    And(w=y, x=notz, out=yandnotz);
+    And(w=notwandx, x=yandnotz, out=notwandnotxandyandnotz);
 
-    Not(in=z, out=notz);
-    And(a=y, b=notz, out=yandnotz);
-    And(a=notwandnotx, b=yandnotz, out=notwandnotxandyandnotz);
+    And(w=y, x=z, out=yandz);
+    And(w=notwandnotx, x=yandz, out=notwandnotxandyandz);
 
-    And(a=y, b=z, out=yandz);
-    And(a=notwandnotx, b=yandz, out=notwandnotxandyandz);
+    And (w=notw, x=x, out=notwandx);
+    And (w=noty, x=notz, out=notyandnotz);
+    And (w=notwandx, x=notyandnotz, out=notwandxandnotyandnotz);
 
-    And(a=notw, b=x, out=notwandx);
-    And(a=noty, b=notz, out=notyandnotz);
-    And(a=notwandx, b=notyandnotz, out=notwandxandnotyandnotz);
+    And(w=notwandnotx, x=yandnotz, out=notwandxandyandnotz);
 
-    And(a=notwandx, b=yandnotz, out=notwandxandyandnotz);
+    And (w=w, x=x, out=wandx);
+    And (w=wandx, x=notyandz, out=wandxandnotyandz);
 
-    And(a=w, b=x, out=wandx);
-    And(a=wandx, b=notyandz, out=wandxandnotyandz);
-
-    Or(a=notwandnotxandnotyandz, b=notwandnotxandyandnotz, out=or1);
-    Or(a=notwandnotxandyandz, b=notwandxandnotyandnotz, out=or2);
-    Or(a=notwandxandyandnotz, b=wandxandnotyandz, out=or3);
-    Or(a=or1, b=or2, out=or1oror2);
-    Or(a=or1oror2, b=or3, out=e);
+    Or (w=notwandnotxandnotyandz, x=notwandnotxandyandnotz, out=or1);
+    Or (w=notwandnotxandyandz, x=notwandxandnotyandnotz, out=or2);
+    Or (w=notwandxandyandnotz, x=wandxandnotyandz, out=or3);
+    Or (w=or1, x=or2, out=or1oror2);
+    Or (w=or1oror2, x=or3, out=e);
 }
 
 
