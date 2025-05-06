@@ -1,35 +1,35 @@
 CHIP A6Q2201846133 {
-    IN w, x, y, z;
-    OUT e;
+    IN a, b, c, d;
+    OUT f;
 
     PARTS:
-    Not (in=w, out=notw);
-    Not (in=x, out=notx);
-    And (w=notw, x=notx, out=notwandnotx);
-    Not (in=y, out=noty);
-    And (w=noty, x=z, out=notyandz);
-    And (w=notwandnotx, x=notyandz, out=notwandnotxandnotyandz);
+    Not (in=a, out=nota);
+    Not (in=b, out=notb);
+    And (a=nota, b=notb, out=notaandnotb);
+    Not (in=c, out=notc);
+    And (a=notc, b=d, out=notcandd);
+    And (a=notaandnotb, b=notcandd, out=notaandnotbandnotcandd);
 
-    Not (in=z, out=notz);
-    And (w=y, x=notz, out=yandnotz);
-    And (w=notwandnotx, x=yandnotz, out=notwandnotxandyandnotz);
+    Not (in=d, out=notd);
+    And (a=c, b=notd, out=candnotd);
+    And (a=notaandnotb, b=candnotd, out=notaandnotbandcandnotd);
 
-    And (w=y, x=z, out=yandz);
-    And (w=notwandnotx, x=yandz, out=notwandnotxandyandz);
+    And (a=c, b=d, out=candd);
+    And (a=notaandnotb, b=candd, out=notaandnotbandcandd);
 
-    And (w=notw, x=x, out=notwandx);
-    And (w=noty, x=notz, out=notyandnotz);
-    And (w=notwandx, x=notyandnotz, out=notwandxandnotyandnotz);
+    And (a=nota, b=b, out=notaandb);
+    And (a=notc, b=notd, out=notcandnotd);
+    And (a=notaandb, b=notcandnotd, out=notaandbandnotcandnotd);
 
-    And (w=notwandx, x=yandnotz, out=notwandxandyandnotz);
+    And (a=notaandb, b=candnotd, out=notaandbandcandnotd);
 
-    And (w=w, x=x, out=wandx);
-    And (w=wandx, x=notyandz, out=wandxandnotyandz);
+    And (a=a, b=b, out=aandb);
+    And (a=aandb, b=notcandd, out=aandbandnotcandd);
 
-    Or (w=notwandnotxandnotyandz, x=notwandnotxandyandnotz, out=or1);
-    Or (w=notwandnotxandyandz, x=notwandxandnotyandnotz, out=or2);
-    Or (w=notw andx andy andnotz, x=w andx andnoty andz, out=or3);
-    Or (w=or1, x=or2, out=or1oror2);
-    Or (w=or1oror2, x=or3, out=e);
+    Or (a=notaandnotbandnotcandd, b=notaandnotbandcandnotd, out=or1);
+    Or (a=notaandnotbandcandd, b=notaandbandnotcandnotd, out=or2);
+    Or (a=notaandbandcandnotd, b=aandbandnotcandd, out=or3);
+    Or (a=or1, b=or2, out=or1oror2);
+    Or (a=or1oror2, b=or3, out=f);
 }
 
