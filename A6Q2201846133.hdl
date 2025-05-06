@@ -1,4 +1,8 @@
-PARTS:
+CHIP A6Q2201846133 {
+    IN w, x, y, z;
+    OUT e;
+
+    PARTS:
     Not (in=w, out=notw);
     Not (in=x, out=notx);
     And (w=notw, x=notx, out=notwandnotx);
