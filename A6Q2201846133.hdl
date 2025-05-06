@@ -14,8 +14,8 @@ CHIP A6Q2201846133 {
     And(a=y, b=notz, out=yandnotz);
     And(a=notwandx, b=yandnotz, out=notwandnotxandyandnotz);
 
-    And(w=y, x=z, out=yandz);
-    And(w=notwandnotx, x=yandz, out=notwandnotxandyandz);
+    And(a=y, b=z, out=yandz);
+    And(a=notwandnotx, b=yandz, out=notwandnotxandyandz);
 
     And (a=notw, b=x, out=notwandx);
     And (a=noty, b=notz, out=notyandnotz);
@@ -29,7 +29,7 @@ CHIP A6Q2201846133 {
     Or (a=notwandnotxandnotyandz, b=notwandnotxandyandnotz, out=or1);
     Or (a=notwandnotxandyandz, b=notwandxandnotyandnotz, out=or2);
     Or (a=notwandxandyandnotz, b=wandxandnotyandz, out=or3);
-    Or (a=or1, x=or2, out=or1oror2);
+    Or (a=or1, b=or2, out=or1oror2);
     Or (a=or1oror2, b=or3, out=e);
 }
 
