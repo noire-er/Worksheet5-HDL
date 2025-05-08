@@ -1,4 +1,3 @@
-
 CHIP DecoderSegmentE {
     IN A,B,C,D;     
     OUT e; 
