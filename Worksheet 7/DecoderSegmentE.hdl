@@ -1,0 +1,27 @@
+
+CHIP DecoderSegmentE {
+    IN A,B,C,D;     
+    OUT e; 
+    
+    PARTS: 
+    Not(in=A,out=nA); 
+    Not(in=B,out=nB); 
+    Not(in=C,out=nC); 
+    Not(in=D,out=nD); 
+    And(a=nA,b=nB,out=nAnB); 
+    And(a=nC,b=nD,out=nCnD); 
+    And(a=nAnB,b=nCnD,out=d1); 
+    And(a=nA,b=B,out=nAB); 
+    And(a=nAB,b=nC,out=d2); 
+    And(a=C,b=nD, out=CnD); 
+    And(a=nAB,b=CnD, out=d3); 
+    And(a=A,b=B,out=AB); 
+    And(a=AB,b=C,out=d4);
+    And(a=AB, b=nCnD,out=d5); 
+    And(a=A,b=nB, out=d6); 
+    Or(a=d1,b=d2,out=d12); 
+    Or(a=d3,b=d4,out=d34); 
+    Or(a=d5,b=d6,out=d56); 
+    Or(a=d12, b=d34, out=d1234); 
+    Or(a=d1234,b=d56,out=e);
+}
