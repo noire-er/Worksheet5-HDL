@@ -1,0 +1,13 @@
+CHIP DisplayCounter201846133 {
+    IN in, reset;
+    OUT a,b,c,d,e,f,g;
+
+    PARTS:
+    Register(out=counter, in=nextVal, laod=load);
+    Inc16(in=counter, out=fullIncrementedVal);
+    And16(a=fullIncrementedVal, b[0..15]=false, out=incrementedVal);
+    Mux16(a=incrementedVal, b[0..3]=false, sel=reset, out=nextVal);
+    Or(a=inc, b=reset, out=load);
+    Decoder201846133(in=counter, outA=a, outB=b, outC=c, outD=d, outE=e, outF=f, outG=g);
+    
+}
