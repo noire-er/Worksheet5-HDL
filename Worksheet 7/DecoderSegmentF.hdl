@@ -1,4 +1,4 @@
-CHIP DecoderSegment201870396 {
+CHIP DecoderSegment201846133 {
 
     IN A,B,C,D;
     OUT f;
