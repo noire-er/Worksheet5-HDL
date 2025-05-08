@@ -1,6 +1,6 @@
 CHIP A6Q2201846133 {
     IN a, b, c, d;
-    OUT e;
+    OUT f;
 
     PARTS:
     Not (in=a, out=nota);
@@ -30,7 +30,7 @@ CHIP A6Q2201846133 {
     Or (a=notaandnotbandcandd, b=notaandbandnotcandnotd, out=or2);
     Or (a=notaandbandcandnotd, b=aandbandnotcandd, out=or3);
     Or (a=or1, b=or2, out=or1oror2);
-    Or (a=or1oror2, b=or3, out=e);
+    Or (a=or1oror2, b=or3, out=f);
 }
 
 
