@@ -7,6 +7,6 @@ CHIP P2S {
 
     Counter(in=false, load=false, enable=enable, out=bitPos);
 
-    Mux4Way16(a=storedData[0], b=storedData[1], c=storedData[2], d=storedData[3], sel=bitPos, out=sout);
-    Or(a=bitPos[1], b=bitPos[0], out=complete);
+    Mux4Way16(a[0..15]=false, b[0..15]=false, c[0..15]=false, d[0..15]=false, sel=bitPos, out=sout, a[0]=storedData[0], b[0]=storedData[1], c[0]=storedData[2], d[0]=storedData[3]);
+    And(a=bitPos[1], b=bitPos[0], out=complete);
 }
