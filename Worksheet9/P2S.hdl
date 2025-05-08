@@ -1,0 +1,12 @@
+CHIP P2S {
+    IN indata[4], enable, load:
+    OUT sout, complete;
+
+    PARTS:
+    Register(in=indata, load=load, out=storedData);
+
+    Counter(in=false, load=false, enable=enable, out=bitPos);
+
+    Mux4Way16(a=storedData[0], b=storedData[1], c=storedData[2], d=storedData[3], sel=bitPos, out=sout);
+    Or(a=bitPos[1], b=bitPos[0], out=complete);
+}
