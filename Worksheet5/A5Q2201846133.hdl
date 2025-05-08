@@ -8,6 +8,6 @@ CHIP A5Q2201846133 {
     Or (a=notC, b=O, out=A);
     Or (a=notC, b=O, out=B);  
     Or (a=A, b=B, out=C)
-    And (a=notC, b=C, out=U);    
+    And (a=notV, b=C, out=U);    
    
 }
