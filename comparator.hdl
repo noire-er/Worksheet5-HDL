@@ -1,0 +1,50 @@
+CHIP comparator {
+    IN a[2],b[2];
+    OUT X,Y,Z;
+
+    PARTS:
+
+    Not (in=a[0], out = nota0);
+    Not (in=a[1], out = nota1);
+    Not (in=b[0], out = notb0);
+    Not (in=b[1], out = notb1);
+
+    And (a=a[1], b=notb1, out = a1notb1);
+
+    And (a=a[0], b=notb0, out= a0notb0);
+    And (a=a0notb0, b=notb1, out=a0notb0notb1);
+
+    And (a=a0notb0, b=a[1], out=a0notb0a1);
+
+    Or(a=a1notb1, b=a0notb0notb1, out = X1);
+    Or(a=X1, b=a0notb0a1, out = X2);
+    Or(a=X1, b=X2, out = X);
+
+
+    And (a=nota1, b=b[1], out = nota1b1);
+
+    And (a=b[0], b=nota0, out= b0nota0);
+    And (a=b0nota0, b=nota1, out=b0notb0nota1);
+
+    And (a=b0nota0, b=b[1], out=b0nota0b1);
+
+    Or(a=nota1b1, b=b0notb0nota1, out = Z1);
+    Or(a=Z1, b=b0nota0b1, out = Z2);
+    Or(a=Z1, b=Z2, out = Z);
+
+
+    And4 (a=nota1, b=nota0, c= notb1, d= notb0, out=Y1);
+    And4 (a=nota1, b=a[0], c= notb1, d= b[0], out=Y2);
+    And4 (a=a[1], b=a[0], c= b[1], d= b[0], out=Y3);
+    And4 (a=a[1], b=nota0, c= b[1], d= notb0, out=Y4);
+    
+    Or (a=Y1, b = Y2, out = Y1Y2);
+    Or (a=Y1Y2, b = Y3, out = Y1Y2Y3);
+    Or (a=Y1Y2Y3, b = Y4, out = Y);
+
+
+
+
+
+
+}
