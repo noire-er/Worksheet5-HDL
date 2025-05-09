@@ -3,6 +3,6 @@ CHIP And3 {
     OUT out;
 
     PARTS:
-    And(a=a, b=b, c=c);
-    And(a=ab, b=c, out=out);
+    And(a=a, b=b, out=and1);
+    And(a=and1, b=c, out=out);
 }
