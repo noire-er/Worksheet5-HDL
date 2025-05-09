@@ -31,6 +31,7 @@ CHIP A6Q2201846133 {
     Or (a=notaandbandcandnotd, b=aandbandnotcandd, out=or3);
     Or (a=or1, b=or2, out=or1oror2);
     Or (a=or1oror2, b=or3, out=f);
+
 }
 
 
