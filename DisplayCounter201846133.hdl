@@ -1,13 +1,12 @@
 CHIP DisplayCounter201846133 {
-    IN in, reset;
+    IN inc, reset;
     OUT a,b,c,d,e,f,g;
 
     PARTS:
-    Register(out=counter, in=nextVal, load=load);
-    Inc16(in=counter, out=fullIncrementedVal);
-    And16(a=fullIncrementedVal, b[0..15]=false, out=incrementedVal);
-    Mux16(a=incrementedVal, b[0..3]=false, sel=reset, out=nextVal);
-    Or(a=inc, b=reset, out=load);
-    Decoder201846133(in=counter, outA=a, outB=b, outC=c, outD=d, outE=e, outF=f, outG=g);
+    Mux16(a=valve, b=false, sel=reset, out=loadValve);
+    Register(in=loadValve, load=true, out=currentValve, out[0]=valve0, out[1]=valve1, out[2]=valve2, out[3]=valve3);
+    Inc16(in=currentValve, out=newValve);
+    Mux16(a=currentValve, b=newValve, sel=inc, out=valve);
+    Decoder201846133(A=valve3, B=valve2, C=valve1, D=Valve0, a=a, b=b, c=c, d=d, e=e, f=f, g=g);
     
 }
