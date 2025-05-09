@@ -5,7 +5,7 @@ CHIP A6Q2201846133 {
     PARTS:
     Not (in=a, out=nota);
     Not (in=b, out=notb);
-    And (a=nota, a=nota, out=notaandnotb);
+    And (a=nota, b=notb, out=notaandnotb);
     Not (in=c, out=notc);
     And (a=notc, b=d, out=notcandd);
     And (a=notaandnotb, b=notcandd, out=notaandnotbandnotcandd);
