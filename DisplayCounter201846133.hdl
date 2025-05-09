@@ -4,6 +4,10 @@ CHIP DisplayCounter201846133 {
 
     PARTS:
     Mux16(a=valve, b=false, sel=reset, out=loadValve);
+    Register(in=loadValve, load=true, out=currentValve, out[0]=valve0, out[1]=valve1, out[2]=valve2, out[3]=valve3);
+    Inc16(in=currentValve, out=newValve);
+    Mux16(a=currentValve, b=newValve, sel=inc, out=valve);
+    Decoder201846133(A=valve3, B=valve2, C=valve1, D=valve0, a=a, b=b, c=c, d=d);
     
 
 }
