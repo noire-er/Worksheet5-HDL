@@ -3,10 +3,31 @@ CHIP P2S {
     OUT sout, complete;
 
     PARTS:
-    Register(in=indata, load=load, out=storedData);
+    Register(in[0..3] = indata, in[4..15] = false, load = load, out[0] = bit1, out[1] = bit2, out[2] = bit3, out[3] = bit4);
+    Not(in = shift0, out = notshift0);
+    Not(in = shift1, out = notshift1);
+    Not(in = shift2, out = notshift2);
+    Not(in = shift3, out = notshift3);
 
-    Counter(in=false, load=false, enable=enable, out=bitPos);
+    And(a = notshift0, b = notshift1, out = e1);
+    And(a = notshift2, b = notshift3, out = e2);
+    And(a = e1, b = e2, out = e3);
+    And(a = e3, b = enable, out = enabled);
 
-    Mux4Way16(a=storedData[0], b=storedData[1], c=storedData[2], d=storedData[3], sel=bitPos, out=sout);
-    Or(a=bitPos[1], b=bitPos[0], out=complete);
+    DFF(in = enabled, out = shift0);
+    DFF(in = shift0, out = shift1);
+    DFF(in = shift1, out = shift2);
+    DFF(in = shift2, out = shift3);
+
+    And(a=bit1, b=shift0, out=thisbit1);
+    And(a=bit2, b=shift1, out=thisbit2);
+    And(a=bit3, b=shift2, out=thisbit3);
+    And(a=bit4, b=shift3, out=thisbit4);
+
+    Or(a=thisbit1, b=thisbit2, out=bit1orbit2);
+    Or(a=thisbit3, b=thisbit4, out=bit3orbit4);
+    Or(a=bit1orbit2, b=bit3orbit4, out=sout);
+
+    And(a=true, b=shift3, out=complete);
+
 }
