@@ -1,5 +1,7 @@
 @R0         // Here we are laoding x from R0
 D=M         // Here setting D = x 
+@R4
+M=-32768
 
 @NEGATIVE   // Here we are checking wether x is negative or NOT
 D;JLT       // If x<0, aka negative, then move to negative
@@ -21,8 +23,8 @@ M=1         // R2 = 1 so we are indicating that x was negative value
 
 @R0
 D=M         // Here we are loading x again
-@32768
-D=D+A       // Here we are checking if x +32768 == 0 so therefore checking if x = -32768
+@R4
+D=D+M       // Here we are checking if x +32768 == 0 so therefore checking if x = -32768
 @NO_OVERFLOW
 D;JNE       // This line says that if x is not - 32768 then we will move to NO_OVERFLOW hence @NO_OVERFLOW
 
