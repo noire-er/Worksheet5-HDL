@@ -1,49 +1,73 @@
-@R0         // Here we are laoding x from R0
-D=M         // Here setting D = x 
-@R4
-M=-32768
+// AbsoluteValue.asm
 
-@NEGATIVE   // Here we are checking wether x is negative or NOT
-D;JLT       // If x<0, aka negative, then move to negative
+// Load x from R0, do not modify R0
+@0
+D=M      // D = x
 
-@R1         // Scenario where x is non negative so we store/load it in R1 and set the flags
-M=D         // R1 = x
-@R2
-M=0         // R2 = 0 therefore not negative
-@R3
-M=0         // R3 = 0 no oveflow occurs
-@0;JMP      // Here we move to the end
+// Check if x is negative
+@NEGATIVE
+D;JLT    // if x < 0 jump to NEGATIVE
 
-(NEGATIVE)
-D=-D        // Here setting d = -x 
-@R1
-M=D         // Store |x| in R1
-@R2
-M=1         // R2 = 1 so we are indicating that x was negative value
-
-@R0
-D=M         // Here we are loading x again
-@R4
-D=D+M       // Here we are checking if x +32768 == 0 so therefore checking if x = -32768
-@NO_OVERFLOW
-D;JNE       // This line says that if x is not - 32768 then we will move to NO_OVERFLOW hence @NO_OVERFLOW
-
-@R3
-M=1         // Here we are setting R3 = 1
-@R0
-D=M         // D = orignal x
-@R1
-M=D
-@END        // Restore R1 = x
-0;JMP       // Move to the end
-
-(NO_OVERFLOW)
-
-@R3         // For the valid absolute value
+// x >= 0: 
+// Set R2 = 0 (not negative)
+@2
 M=0
+
+// Set R3 = 0 (abs computable)
+@3
+M=0
+
+// R1 = x (absolute value = x)
+@0
+D=M
+@1
+M=D
 
 @END
 0;JMP
 
+(NEGATIVE)
+// x < 0, set R2 = 1
+@2
+M=1
 
+// Check if x == -32768 (0x8000)
+@0
+D=M      // D = x
+@MIN_INT_CHECK
+D;JNE    // if x != -32768 jump to COMPUTE_ABS
 
+// x == -32768
+// Set R3 = 1 (abs not computable)
+@3
+M=1
+
+// R1 = x (unchanged)
+@0
+D=M
+@1
+M=D
+
+@END
+0;JMP
+
+(COMPUTE_ABS)
+// x is negative but not MIN_INT
+// Set R3 = 0
+@3
+M=0
+
+// Compute abs(x) = -x = ~x + 1
+@0
+D=M
+// D = x
+// Compute -x = 0 - x
+D=0-D
+
+@1
+M=D
+
+@END
+0;JMP
+
+(END)
