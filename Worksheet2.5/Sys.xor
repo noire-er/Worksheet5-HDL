@@ -1,0 +1,14 @@
+Function Sys.xor 0
+push argument 0
+push argument 1
+or
+pop temp 0
+push arguement 0
+push arguement 1
+and
+not
+pop temp 1
+push temp 0
+push temp 1
+and 
+return
