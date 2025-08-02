@@ -1,5 +1,3 @@
-// AbsoluteValue.asm
-
 // Load x from R0, do not modify R0
 @0
 D=M      // D = x
