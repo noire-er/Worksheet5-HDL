@@ -7,7 +7,7 @@ D;JLT
 
 
 @2
-M=0                 // if the input is not negative we proceed down the code instead of moving to IS_NEGATIVE, here flag is input not negative
+M=0               
 @3
 M=0                 // input is not -32768
 @0
