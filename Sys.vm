@@ -197,6 +197,31 @@ label COMPUTE_PARITY_LOOP_END
 //
 function Sys.encode 0
     // Your implementation goes here.
+    push argument 0
+    call Sys.computeParity 1
+                                        // here we are calculating the parity bit
+
+    push constant 1
+    eq
+    if-goto SET_PARITY_TO_ONE
+    // checking if the bit is 1
+
+    push argument 0
+    push constant 32767 // 0111111111111111 (mask to clear)
+    and
+    return
+    //results with parity bit
+    
+label SET_PARITY_TO_ONE
+    push argument 0
+
+    push constant 0
+    push constant 32767
+    sub
+    push constant 1
+    sub 
+    
+    or 
     return
 
 
