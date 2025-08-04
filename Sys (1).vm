@@ -1,0 +1,134 @@
+//// COMPUTE THE MINIMUM OF TWO VALUES
+// This function takes two arguments and pushes the smaller of
+// them onto the stack. To call this function, you should:
+//   1. push two values onto the stack; and
+//   2. call this function with `call Sys.min 2`.
+// Before returning, the function pushes the result onto the
+// stack, so that, from the point of view of the callee, the
+// result is at the top of the stack.
+// Push to the stack the minimum of two arguments.
+//
+function Sys.min 0
+    // Your implementation goes here.
+    push argument 0
+    push argument 1
+    lt
+    if-goto RETURN_ARGUMENT0
+    push argument1
+    goto END
+  label RETURN_ARGUMENT0
+    push argument0
+  label END
+    return
+
+//// COMPUTE THE MAXIMUM OF TWO VALUES
+// This function takes two arguments and pushes the larger of
+// them onto the stack. To call this function, you should:
+//   1. push two values onto the stack; and
+//   2. call this function with `call Sys.max 2`.
+// Before returning, the function pushes the result onto the
+// stack, so that, from the point of view of the callee, the
+// result is at the top of the stack.
+// Push to the stack the minimum of two arguments.
+//
+function Sys.max 0
+    // Your implementation goes here.
+    push argument 0
+    push argument 1
+    lt
+    if-goto RETURN_ARGUMENT1
+    push argument 0
+    goto END
+  label RETURN_ARGUMENT1
+    push argument 1
+  label END
+    return
+
+//// COMPUTE THE RANGE OF AN ARRAY.
+// This function takes two arguments, representing an array of
+// integers, and returns the range of the array onto the stack.
+// The two arguments are:
+//   ARG0 - memory location where the array starts, and
+//   ARG1 - number of elements in the array.
+// To call this function, you should:
+//   1. push the address of the first array elementonto the stack;
+//   2. push the number of array elements onto the stack; and
+//   2. call this function with `call Sys.range 2`.
+// Before returning, the function pushes the result onto the
+// stack, so that, from the point of view of the callee, the
+// result is at the top of the stack.
+//
+function Sys.range 2
+    // Your implementation goes here.
+    push argument 1
+    push constant 1
+    gt
+    if-goto NOTZERO
+    push constant 0
+    goto END
+  label NOTZERO
+    push argument 0
+    pop pointer 0
+    push this 0
+    pop local 0
+    push local 0
+    pop local 1
+  label minloop
+    push pointer 0
+    push constant 1
+    add
+    pop pointer 0
+    push pointer 0
+    push argument 0
+    push argument 1
+    add
+    eq
+    if-goto beforemaxloop
+    push local 0
+    push this 0
+    call Sys.min 2
+    pop local 0
+    goto minloop
+  label beforemaxloop
+    push argument 0
+    pop pointer 0
+  label maxloop
+    push pointer 0
+    push constant 1
+    add
+    pop pointer 0
+    push pointer 0
+    push argument 0
+    push argument 1
+    add
+    eq
+    if-goto RANGEEND
+    push local 1
+    push this 0
+    call Sys.max 2
+    pop local 1
+    goto maxloop
+  label RANGEEND
+    push local 1
+    push local 0
+    sub
+  label END
+    return
+
+
+
+// The emulator will start executing from here. You can modify
+// the code below while testing and debugging your code, but
+// please revert your changes before submitting to Gradescope;
+// otherwise, your submission will most likely fail all tests.
+//
+// A better way to test your code is to use the supplied file
+//   Sys.tst
+// with the virtual machine emulator. Please do not submit this
+// file to Gradescope, as this will cause your submission to be
+// rejected.
+//
+function Sys.init 0
+    call Sys.range 2
+label WHILE
+    goto WHILE
