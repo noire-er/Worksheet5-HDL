@@ -1,27 +1,27 @@
-push constant 32767
-push constant 1
-add
-neg
-push argument 0
-eq
+push constant 32767     // Here we are pushing the largest 15 bit number
+push constant 1         // Here we are pushing 1
+add                     // Here we are adding lines 1 and 2
+neg                     // Here we are negating it so it becomes -32768
+push argument 0         // Here we are pushing the input value
+eq                      // Here we are checking it against -32768 to see if it is equal to it, if yes; then move to UNDEFINED
 if-goto UNDEFINED
 
 push argument 0
 push constant 0
-lt
-if-goto NEGATIVE
+lt                      // Here we are checking if the input is less than 0
+if-goto NEGATIVE        // If it is lower than 0, then move to NEGATIVE
 push argument 0
-pop argument 1
+pop argument 1          // Store the input in argument 1
 push constant 0
-pop argument 2
+pop argument 2          // isNEGATIVE = 0
 push constant 0
-pop argument 3
+pop argument 3          // isUNDEFINED = 0
 goto END
 
 label UNDEFINED
 
 push constant 1
-pop argument 3
+pop argument 3          // isUNDEFINED = 1
 goto END
 
 
@@ -29,12 +29,12 @@ label NEGATIVE
 
 push argument 0
 neg  
-pop argument 1
+pop argument 1          // absolute value = - input
 
 push constant 1
-pop argument 2
+pop argument 2          //isNEGATIVE = 1
 
 push constant 0
-pop argument 3
+pop argument 3          //isUNDEFINED = 0
 
 label END
