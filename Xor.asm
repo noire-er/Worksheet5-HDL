@@ -1,19 +1,19 @@
-@R0
-D=M        // D = R0
+@R0     // Load the value in R0 into D, call the value A
+D=M       
 @R1
-D=D|M      // D = R0 OR R1
+D=D|M   // D = A or R1
 @temp
-M=D        // temp = R0 OR R1
+M=D     // Store result of D|M into temp
 
 @R0
-D=M
+D=M     // Load A into D once again
 @R1
-D=D&M      // D = R0 AND R1
+D=D&M   // D = A and B
 @R2
-M=!D       // R2 = NOT (R0 AND R1)
+M=!D    // store NOT operation of a AND b into R2
 
 @temp
-D=M
+D=M     // Load a|b from temp into D
 @R2
-M=D&M      // R2 = (R0 OR R1) AND NOT (R0 AND R1)
+M=D&M   // R2 = (a|b) AND NOT(a|b)
 

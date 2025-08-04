@@ -17,7 +17,7 @@ M=0        // R3 = 0 , the valid absolute value
 0;JMP      // Jump to end
 
 (NEGATIVE)
-// x is negative, so we do |x| = -x
+           // x is negative, so we do |x| = -x
 D=-D       // D = -x
 @R1
 M=D        // Store |x| in R1
@@ -40,7 +40,7 @@ D=M        // D = the original x
 @R1
 M=D        // R1 = x
 @END
-0;JMP      // Jump to end
+0;JMP      // here it jumps to the end
 
 (NO_OVERFLOW)
 // the valid absolute value
