@@ -83,7 +83,6 @@ label RETURN_Y
     return
 
 
-
 //// COMPUTE THE PARITY OF THE BOTTOM 15 BITS OF AN INTEGER.
 // This function takes one arguments and pushes the parity of
 // the fifteen right-most bits onto the stack. The possible output
@@ -109,6 +108,69 @@ label RETURN_Y
 //
 function Sys.computeParity 2
     // Your implementation goes here.
+    // here we are initialising the parity bit (local 0)
+    push constant 0
+    pop local 0 
+
+    // here we are initialising the counter (local 1)
+    push constant 0 
+    pop local 1
+
+    goto COMPUTE_PARITY_LOOP
+
+label COMPUTE_PARITY_LOOP
+    // getting the counter
+    push local 1
+    push constant 15
+    eq 
+    if-goto COMPUTE_PARITY_LOOP_END
+
+    // here we calculating the bitmask 
+    push constant 1
+    push local 1
+    call Sys.shiftLeft 2
+
+    // calculating the ith bit
+    push argument 0 
+    and
+
+    // here we are checking the condition for ithbit
+    push constant 0
+    eq
+    not
+    if-goto CHANGE_PARITY
+    
+    // incrementing the counter
+    push local 1
+    push constant 1
+    add
+    pop local 1
+
+    goto COMPUTE_PARITY_LOOP
+
+label CHANGE_PARITY
+    // calculate XOR
+    push local 0 
+    push constant 1
+    
+    // call xor
+    call Sys.xor 2
+
+    // update value
+    pop local 0
+
+    // increment counter
+    push local 1
+    push constant 1
+    add
+    pop local 1
+
+    goto COMPUTE_PARITY_LOOP
+
+label COMPUTE_PARITY_LOOP_END
+    push local 0 
+    return 
+
     return
 
 
