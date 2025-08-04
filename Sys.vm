@@ -42,6 +42,44 @@ function Sys.xor 0
 //
 function Sys.shiftLeft 2
     // Your implementation goes here.
+    push argument 1     // here we push argument
+    push constant 0     
+    eq                  // checks if the argument, i.e. g. we pushed is == 0
+    if-goto RETURN_Y    // if it is == 0, Go to RETURN_Y
+
+    push constant 0
+    pop local 0         // here in these two line we are initializing the counter
+
+    push argument 0
+    pop local 1
+                        // here we are initializing the results to x
+label SHIFTLOOP
+                        // if the counter is equal to g then exit the loop we have made
+    push local 0        
+    push argument 1
+    eq
+    if-goto SHIFTENDOFLOOP
+
+    push local 1        // here we push local 1
+    push local 1        // here we push local 1 again
+    add                 // ADD local 1 and local 1, therefore we are multiplying local by 2
+    pop local 1
+
+    push local 0        // here we are incrementing the counter 
+    push constant 1
+    add
+    pop local 0
+
+    goto SHIFTLOOP
+
+label SHIFTENDOFLOOP
+
+    push local 1
+    return
+                        // Returning the result
+label RETURN_Y
+    push argument 0
+        
     return
 
 
