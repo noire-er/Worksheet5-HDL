@@ -1,12 +1,12 @@
-push argument 0
-not
-push argument 1
-and
-pop local 0
-push argument 1
-not
-push argument 0
-and
-push local 0
-or
-pop argument 2
+push argument 0             // pushes argument 1
+not                         // NOT of argument 1
+push argument 1             // pushes argument 2
+and                         // performs AND operation on arguments 1 and 2
+pop local 0                 // saves result
+push argument 1             // pushes second argument again
+not                         // performs NOT operation of second argument
+push argument 0             // pushes first argument again
+and                         // performs AND operation on arguments 2 and 1
+push local 0                // pushes earlier value of a AND b
+or                          // performs OR operation on NOTA and B and A and NOTB
+pop argument 2              // stores result in argument 2
