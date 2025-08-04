@@ -1,0 +1,84 @@
+function Sys.min 0
+  push argument 0
+  push argument 1
+  lt
+  if-goto RETURN_ARG0
+  push argument 1
+  goto END
+label RETURN_ARG0
+  push argument 0
+label END
+  return
+
+function Sys.max 0
+  push argument 0
+  push argument 1
+  lt
+  if-goto RETURN_ARG1
+  push argument 0
+  goto END
+label RETURN_ARG1
+  push argument 1
+label END
+  return
+
+function Sys.range 2
+  push argument 1
+  push constant 1
+  gt
+  if-goto NOTZERO
+  push constant 0
+  goto END
+label NOTZERO
+  push argument 0
+  pop pointer 0
+  push this 0
+  pop local 0
+  push local 0
+  pop local 1
+label minloop
+  push pointer 0
+  push constant 1
+  add
+  pop pointer 0
+  push pointer 0
+  push argument 0
+  push argument 1
+  add
+  eq
+  if-goto beforemaxloop
+  push local 0
+  push this 0
+  call Sys.min 2
+  pop local 0
+  goto minloop
+label beforemaxloop
+  push argument 0
+  pop pointer 0
+label maxloop
+  push pointer 0
+  push constant 1
+  add
+  pop pointer 0
+  push pointer 0
+  push argument 0
+  push argument 1
+  add
+  eq
+  if-goto RANGEEND
+  push local 1
+  push this 0
+  call Sys.max 2
+  pop local 1
+  goto maxloop
+label RANGEEND
+  push local 1
+  push local 0
+  sub
+label END
+  return
+
+function Sys.init 0
+    call Sys.range 2
+label WHILE
+    goto WHILE
