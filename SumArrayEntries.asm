@@ -1,58 +1,57 @@
 @0
-D=M
+D=M         // load number into D
 
-// Check if x < 0
-@IS_NEGATIVE
-D;JLT        // Jump if x is negative
 
-// If x >= 0:
+@IS_NEGATIVE        //if the input is less than 0 then move to IS_NEGATIVE
+D;JLT        
+
+
 @2
-M=0          // R2 = 0 (x not negative)
+M=0                 // if the input is not negative we proceed down the code instead of moving to IS_NEGATIVE, here flag is input not negative
 @3
-M=0          // R3 = 0 (abs computable)
+M=0                 // input is not -32768
 @0
-D=M
+D=M                 // D = the input
 @1
-M=D          // R1 = x
+M=D          
 @END
-0;JMP
+0;JMP               // move to the end and finish 
 
 (IS_NEGATIVE)
-// x < 0
+
 @2
-M=1          // R2 = 1 (x is negative)
+M=1                 // input is negative
 
-// Check if x == -32768
+
 @0
-D=M
+D=M                 // the input = D
 @CHECK_MIN
-D=A-D        // D = 32768 - x
+D=A-D               // D would equal 0 if the input was -32768 as 32768 + -32768 = 0
 @COMPUTE_ABS
-D;JNE        // If x != -32768, jump to compute abs
+D;JNE               // if it is not == 0 then we move to COMPUTE_ABS
 
-// x == -32768
+
 @3
-M=1          // R3 = 1 (abs not computable)
+M=1          // RAM[3] = 1 → Flag: input was -32768
 @0
 D=M
 @1
-M=D          // R1 = x (unchanged)
+M=D         // We can't negate -32768, so return it as-is
 @END
-0;JMP
+0;JMP       // we move to the end
 
 (CHECK_MIN)
-@32768       // Load constant 32768
+@32768       // sets A to 32768
 
 (COMPUTE_ABS)
-// x is negative but not -32768
 @3
-M=0          // R3 = 0 (abs computable)
+M=0         //not the special value
 @0
-D=M
-D=0-D        // D = -x
+D=M         //once again, d = input
+D=0-D       
 @1
-M=D          // R1 = |x|
+M=D        // absolute value of input
 
 (END)
 @END
-0;JMP        // Infinite loop or end
+0;JMP      // halts program 
