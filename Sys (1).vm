@@ -13,10 +13,10 @@ function Sys.min 0
     push argument 0
     push argument 1
     lt
-    if-goto RETURN_ARGUMENT0
+    if-goto RETURN_ARG0
     push argument1
     goto END
-  label RETURN_ARGUMENT0
+  label RETURN_ARG0
     push argument0
   label END
     return
@@ -36,10 +36,10 @@ function Sys.max 0
     push argument 0
     push argument 1
     lt
-    if-goto RETURN_ARGUMENT1
+    if-goto RETURN_ARG1
     push argument 0
     goto END
-  label RETURN_ARGUMENT1
+  label RETURN_ARG1
     push argument 1
   label END
     return
