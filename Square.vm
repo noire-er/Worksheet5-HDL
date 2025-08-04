@@ -1,48 +1,86 @@
 push argument 0
+
 pop local 3
+
 push constant 0
+
 push local 3
+
 gt
+
 if-goto NEGATIVE
 
+
+
 goto START
+
 label NEGATIVE
+
 push local 3
+
 neg
+
 pop local 3
+
+
 label START
 
-push local 3
-push local 3
 
-call Square.Mult2
+push local 3  
+
+push local 3   
+
+call Square.Mult 2  
+
 label end
 goto end
 
-function Square.multiplied 2
 
-push constant 0
-pop local 0
-push arguement 1
-pop local 1
+function Square.Mult 2  // Two local vars: sum, counter
 
-label MULTIPLY_LOOP
+push constant 0  
+
+pop local 0  // local 0 = sum = 0
+
+push argument 1
+
+pop local 1       // local 1 = counter = y
+
+
+label MULT_LOOP
+
 push local 1
+
 push constant 0
+
 eq
-if-goto MULTIPLY_END
 
-push local 0
+if-goto MULT_END  // If counter == 0, exit
+
+
+push local 0      
+
 push argument 0
-add
-pop local 0
+
+add              
+
+pop local 0      // sum += x
+
 
 push local 1
-push constant 1
-sub
-pop local 1
-goto MULTIPLY_LOOP
 
-label MULTIPLY_END
-push local 0
+push constant 1
+
+sub              
+
+pop local 1      // counter--
+
+
+goto MULT_LOOP
+
+
+label MULT_END
+
+push local 0      // Return sum
+
 return
