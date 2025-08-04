@@ -1,27 +1,27 @@
 push argument 0
-
+// pushes first argument
 pop local 3
-
+// store it in local 3
 push constant 0
 
 push local 3
 
 gt
-
+// check if argument is greater than zero
 if-goto NEGATIVE
-
+// If it is greater than zero, then move to NEGATIVE
 
 
 goto START
-
+// Otherwise go to START
 label NEGATIVE
 
 push local 3
 
 neg
-
+// Make it positive to - argument
 pop local 3
-
+// store it back in local 3
 
 label START
 
@@ -30,11 +30,10 @@ push local 3
 
 push local 3   
 
-call Square.Mult 2  
+call Square.Mult 2          // Call Square.Mult(x, x) → square the number
 
 label end
 goto end
-
 
 function Square.Mult 2  // Two local vars: sum, counter
 
