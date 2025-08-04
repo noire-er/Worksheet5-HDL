@@ -1,0 +1,48 @@
+push argument 0
+pop local 3
+push constant 0
+push local 3
+gt
+if-goto NEGATIVE
+
+goto START
+label NEGATIVE
+push local 3
+neg
+pop local 3
+label START
+
+push local 3
+push local 3
+
+call Square.Mult2
+label end
+goto end
+
+function Square.multiplied 2
+
+push constant 0
+pop local 0
+push arguement 1
+pop local 1
+
+label MULTIPLY_LOOP
+push local 1
+push constant 0
+eq
+if-goto MULTIPLY_END
+
+push local 0
+push argument 0
+add
+pop local 0
+
+push local 1
+push constant 1
+sub
+pop local 1
+goto MULTIPLY_LOOP
+
+label MULTIPLY_END
+push local 0
+return
