@@ -1,57 +1,47 @@
-@0
-D=M         // load number into D
+@R2
+M=0                  // R2 = 0 → This will store the final sum (initialize to 0)
 
-
-@IS_NEGATIVE        //if the input is less than 0 then move to IS_NEGATIVE
-D;JLT        
-
-
-@2
-M=0               
-@3
-M=0                 // input is not -32768
-@0
-D=M                 // D = the input
-@1
-M=D          
+@R1
+D=M                  // D = R1 → Load the count (how many numbers to sum)
 @END
-0;JMP               // move to the end and finish 
+D;JEQ                // If count is 0, skip everything and go to END
 
-(IS_NEGATIVE)
+@R0
+D=M                  // D = R0 → Load the starting memory address of the numbers
+@R3
+M=D                  // R3 = R0 → Use R3 as a pointer to current number
 
-@2
-M=1                 // input is negative
-
-
-@0
-D=M                 // the input = D
-@CHECK_MIN
-D=A-D               // D would equal 0 if the input was -32768 as 32768 + -32768 = 0
-@COMPUTE_ABS
-D;JNE               // if it is not == 0 then we move to COMPUTE_ABS
-
-
-@3
-M=1          // RAM[3] = 1 → Flag: input was -32768
-@0
+@R1
+D=M                  // D = R1 again (count)
+@R4
+M=D                  // R4 = count → will use R4 as a countdown counter in the loop
+asm
+Copy
+Edit
+(LOOP)
+@R4
 D=M
-@1
-M=D         // We can't negate -32768, so return it as-is
 @END
-0;JMP       // we move to the end
+D;JEQ                // If R4 == 0, we're done → go to END
 
-(CHECK_MIN)
-@32768       // sets A to 32768
+@R3
+A=M
+D=M                  // Get value from memory address stored in R3
 
-(COMPUTE_ABS)
-@3
-M=0         //not the special value
-@0
-D=M         //once again, d = input
-D=0-D       
-@1
-M=D        // absolute value of input
+@R2
+M=M+D                // Add value to R2 (the running total)
 
+@R3
+M=M+1                // Move pointer (R3) to next memory address
+
+@R4
+M=M-1                // Decrease the counter (R4)
+
+@LOOP
+0;JMP                // Repeat the loop
+asm
+Copy
+Edit
 (END)
 @END
-0;JMP      // halts program 
+0;JMP                // Infinite loop to stop the program
