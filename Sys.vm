@@ -12,20 +12,26 @@
 //
 function Sys.xor 0
     // Your implementation goes here.
-    push argument 0         // here we push the first argument on the stack
-    push argument 1         // here we push second argument
-    add                     // performs addition of the arguments in lines 15 and 16
+    // Formula for XOR -> XOR(a,b)= a+b − 2 * (a AND b)
+    
+    // a + b
+    push argument 0
+    push argument 1
+    add
 
-    push argument 0         // here we push first arguement again
-    push argument 1         // here we push second argument again
-    and                     // here we perform AND on argument 1 and 2
-    push argument 0         // pushes argument 1
-    push argument 1         // pushes argument 2
-    and                     // another AND operation
-    add                     // Addition of the 2 AND results
-   
-   
-     return                  // returns the top value on stack, aka the result of XOR (a,b) which is a + b - 2 multiply (A AND B)
+    // 2 * (a AND b)
+    push argument 0
+    push argument 1
+    and
+    push argument 0
+    push argument 1
+    and
+    add
+
+    // XOR(a,b)= a+b − 2 * (a AND b)
+    sub
+
+    return
 
 
 
@@ -41,31 +47,36 @@ function Sys.xor 0
 // result is at the top of the stack.
 //
 function Sys.shiftLeft 2
-    // Your implementation goes here.
-    push argument 1     // here we push argument
-    push constant 0     
-    eq                  // checks if the argument, i.e. g. we pushed is == 0
-    if-goto RETURN_X    // if it is == 0, Go to RETURN_Y
 
+    // If y == 0, return x unchanged
+    push argument 1
     push constant 0
-    pop local 0         // here in these two line we are initializing the counter
+    eq
+    if-goto RETURN_X
 
+    // Initialize counter (loop index)
+    push constant 0
+    pop local 0  // local 0 = i
+
+    // Initialize result to x
     push argument 0
-    pop local 1
-                        // here we are initializing the results to x
+    pop local 1  // local 1 = x
+
 label SHIFT_LOOP
-                        // if the counter is equal to g then exit the loop we have made
-    push local 0        
+    // If counter == y, exit loop
+    push local 0
     push argument 1
     eq
     if-goto SHIFT_LOOP_END
 
-    push local 1        // here we push local 1
-    push local 1        // here we push local 1 again
-    add                 // ADD local 1 and local 1, therefore we are multiplying local by 2
-    pop local 1
+    // Double the value (multiply by 2)
+    push local 1
+    push local 1
+    add
+    pop local 1  // local 1 *= 2
 
-    push local 0        // here we are incrementing the counter 
+    // Increment counter
+    push local 0
     push constant 1
     add
     pop local 0
@@ -73,15 +84,13 @@ label SHIFT_LOOP
     goto SHIFT_LOOP
 
 label SHIFT_LOOP_END
-
+    // Return result
     push local 1
     return
-                        // Returning the result
+
 label RETURN_X
     push argument 0
-        
     return
-
 
 //// COMPUTE THE PARITY OF THE BOTTOM 15 BITS OF AN INTEGER.
 // This function takes one arguments and pushes the parity of
@@ -107,40 +116,39 @@ label RETURN_X
 // result is at the top of the stack.
 //
 function Sys.computeParity 2
-    // Your implementation goes here.
-    // here we are initialising the parity bit (local 0)
+    // initialise parity bit (local 0)
     push constant 0
     pop local 0 
 
-    // here we are initialising the counter (local 1)
+    // initialise counter (local 1)
     push constant 0 
     pop local 1
 
     goto COMPUTE_PARITY_LOOP
 
 label COMPUTE_PARITY_LOOP
-    // getting the counter
+    // get counter
     push local 1
     push constant 15
     eq 
     if-goto COMPUTE_PARITY_LOOP_END
 
-    // here we calculating the bitmask 
+    // calculate bitmask 
     push constant 1
     push local 1
     call Sys.shiftLeft 2
 
-    // calculating the ith bit
+    // calculate ith bit
     push argument 0 
     and
 
-    // here we are checking the condition for ithbit
+    // check condition for ithbit
     push constant 0
     eq
     not
     if-goto CHANGE_PARITY
     
-    // incrementing the counter
+    // increment counter
     push local 1
     push constant 1
     add
@@ -171,7 +179,6 @@ label COMPUTE_PARITY_LOOP_END
     push local 0 
     return 
 
-    return
 
 
 //// SET LEFT-MOST BIT TO PARITY BIT.
@@ -196,35 +203,35 @@ label COMPUTE_PARITY_LOOP_END
 // result is at the top of the stack.
 //
 function Sys.encode 0
-    // Your implementation goes here.
+    // calculate parity bit
     push argument 0
-    call Sys.computeParity 1
-                                        // here we are calculating the parity bit
+    call Sys.computeParity 1 
 
+    // check if it is 1    
     push constant 1
     eq
     if-goto SET_PARITY_TO_ONE
-    // checking if the bit is 1
 
+    // result with parity bit 0
     push argument 0
     push constant 32767 // 0111111111111111 (mask to clear)
     and
-    return
-    //results with parity bit
+
+    return 
 
 label SET_PARITY_TO_ONE
+    // argument number
     push argument 0
-
-    push constant 0
-    push constant 32767
+    
+    // calculate mask 1000000000000000 
+    push constant 0 
+    push constant 32767 
     sub
     push constant 1
-    sub 
-    
-    or 
-    return
+    sub
 
-
+    or
+    return 
 
 // The emulator will start executing from here. You can modify
 // the code below while testing and debugging your code, but
