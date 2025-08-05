@@ -3,32 +3,35 @@ CHIP A6Q2201846133 {
     OUT f;
 
     PARTS:
+    //InvertedFunctions
     Not (in=a, out=nota);
     Not (in=b, out=notb);
-    And (a=nota, b=notb, out=notaandnotb);
     Not (in=c, out=notc);
-    And (a=notc, b=d, out=notcandd);
-    And (a=notaandnotb, b=notcandd, out=notaandnotbandnotcandd);
-
     Not (in=d, out=notd);
-    And (a=c, b=notd, out=candnotd);
-    And (a=notaandnotb, b=candnotd, out=notaandnotbandcandnotd);
 
-    And (a=c, b=d, out=candd);
-    And (a=notaandnotb, b=candd, out=notaandnotbandcandd);
+    //FirstTerm
+    And (a=nota, b=notb, out=AndTerm1);
+    And (a=AndTerm1, b=notd, out=FirstTerm);
 
-    And (a=nota, b=b, out=notaandb);
-    And (a=notc, b=notd, out=notcandnotd);
-    And (a=notaandb, b=notcandnotd, out=notaandbandnotcandnotd);
+    //SecondTerm
+    And (a=nota, b=b, out=AndTerm2);
+    And (a=notc, b=d, out=AndTerm3);
+    And (a=AndTerm2, b=AndTerm3, out=SecondTerm);
 
-    And (a=notaandb, b=candnotd, out=notaandbandcandnotd);
+    //ThirdTerm
+    And (a=a, b=notb, out=AndTerm4);
+    And (a=notc, b=notd, out=AndTerm5);
+    And (a=AndTerm4, b=AndTerm5, out=ThirdTerm);
 
-    And (a=a, b=b, out=aandb);
-    And (a=aandb, b=notcandd, out=aandbandnotcandd);
+    //FourthTerm
+    And (a=a, b=b, out=AndTerm6);
+    And (a=c, b=d, out=AndTerm7);
+    And (a=AndTerm6, b=AndTerm7, out=FourthTerm);
 
-    Or (a=notaandnotbandnotcandd, b=notaandnotbandcandnotd, out=or1);
-    Or (a=notaandnotbandcandd, b=notaandbandnotcandnotd, out=or2);
-    Or (a=notaandbandcandnotd, b=aandbandnotcandd, out=or3);
-    Or (a=or1, b=or2, out=or1oror2);
-    Or (a=or1oror2, b=or3, out=f);
+    //OrTerms
+    Or (a=FirstTerm, b=SecondTerm, out=FirstOrTerm);
+    Or (a=ThirdTerm, b=FourthTerm, out=SecondOrTerm);
+    Or (a=FirstOrTerm, b=SecondOrTerm, out=f)
+
+
 }
