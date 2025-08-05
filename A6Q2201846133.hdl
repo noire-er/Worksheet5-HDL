@@ -3,35 +3,32 @@ CHIP A6Q2201846133 {
     OUT f;
 
     PARTS:
+    Not (in=a, out=nota);
+    Not (in=b, out=notb);
+    And (a=nota, b=notb, out=notaandnotb);
+    Not (in=c, out=notc);
+    And (a=notc, b=d, out=notcandd);
+    And (a=notaandnotb, b=notcandd, out=notaandnotbandnotcandd);
 
-    // Inverters (correct pin names)
-    Not(in=a, out=na);
-    Not(in=b, out=nb);
-    Not(in=c, out=nc);
-    Not(in=d, out=nd);
+    Not (in=d, out=notd);
+    And (a=c, b=notd, out=candnotd);
+    And (a=notaandnotb, b=candnotd, out=notaandnotbandcandnotd);
 
-    // Minterm 1: ¬a ∧ ¬b ∧ ¬c ∧ ¬d
-    And(a=na, b=nb, out=t1);
-    And(a=t1, b=nc, out=t2);
-    And(a=t2, b=nd, out=m1);
+    And (a=c, b=d, out=candd);
+    And (a=notaandnotb, b=candd, out=notaandnotbandcandd);
 
-    // Minterm 2: ¬a ∧ ¬b ∧ c ∧ ¬d
-    And(a=na, b=nb, out=t3);
-    And(a=t3, b=c, out=t4);
-    And(a=t4, b=nd, out=m2);
+    And (a=nota, b=b, out=notaandb);
+    And (a=notc, b=notd, out=notcandnotd);
+    And (a=notaandb, b=notcandnotd, out=notaandbandnotcandnotd);
 
-    // Minterm 3: ¬a ∧ b ∧ ¬c ∧ d
-    And(a=na, b=b, out=t5);
-    And(a=t5, b=nc, out=t6);
-    And(a=t6, b=d, out=m3);
+    And (a=notaandb, b=candnotd, out=notaandbandcandnotd);
 
-    // Minterm 4: a ∧ ¬b ∧ ¬c ∧ ¬d
-    And(a=a, b=nb, out=t7);
-    And(a=t7, b=nc, out=t8);
-    And(a=t8, b=nd, out=m4);
+    And (a=a, b=b, out=aandb);
+    And (a=aandb, b=notcandd, out=aandbandnotcandd);
 
-    // Minterm 5: a ∧ b ∧ c ∧ d
-    And(a=a, b=b, out=t9);
-    And(a=t9, b=c, out=t10);
-
+    Or (a=notaandnotbandnotcandd, b=notaandnotbandcandnotd, out=or1);
+    Or (a=notaandnotbandcandd, b=notaandbandnotcandnotd, out=or2);
+    Or (a=notaandbandcandnotd, b=aandbandnotcandd, out=or3);
+    Or (a=or1, b=or2, out=or1oror2);
+    Or (a=or1oror2, b=or3, out=f);
 }
