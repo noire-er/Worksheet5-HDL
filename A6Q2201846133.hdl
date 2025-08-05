@@ -31,7 +31,7 @@ CHIP A6Q2201846133 {
     //OrTerms
     Or (a=FirstTerm, b=SecondTerm, out=FirstOrTerm);
     Or (a=ThirdTerm, b=FourthTerm, out=SecondOrTerm);
-    Or (a=FirstOrTerm, b=SecondOrTerm, out=f)
+    Or (a=FirstOrTerm, b=SecondOrTerm, out=f);
 
 
 }
