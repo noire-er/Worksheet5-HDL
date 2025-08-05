@@ -33,3 +33,5 @@ CHIP A6Q2201846133 {
     // Minterm 5: a ∧ b ∧ c ∧ d
     And(a=a, b=b, out=t9);
     And(a=t9, b=c, out=t10);
+
+}
